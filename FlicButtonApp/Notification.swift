@@ -8,23 +8,22 @@
 
 import Foundation
 import UserNotifications
-
+import Alamofire
 
 @objc class Notification: NSObject {
-    
-    var timer: Timer?
-    
+
     func sendNotification() {
+        // Method called by objective c when button is pressed
         UNUserNotificationCenter.current().getNotificationSettings(completionHandler: { (settings) in
             if(settings.authorizationStatus == .authorized) {
-                self.scheduleNotification()
+                self.setupNotification()
             } else {
                 UNUserNotificationCenter.current().requestAuthorization(options: [.sound, .badge, .alert], completionHandler: { (granted, error) in
                     if let error = error {
                         print(error)
                     } else {
                         if (granted) {
-                            self.scheduleNotification()
+                            self.setupNotification()
                         }
                     }
                 })
@@ -32,10 +31,9 @@ import UserNotifications
         })
     }
     
-    func scheduleNotification() {
+    func setupNotification() {
+        // Notification is made and sent
         let identifier = "alert"
-        
-        
         let cancelAction = UNNotificationAction(identifier: "cancel", title: "Cancel Alert", options: [])
         let alarmCategory = UNNotificationCategory(identifier: "alert.category",actions: [cancelAction],intentIdentifiers: [], options: [])
         UNUserNotificationCenter.current().setNotificationCategories([alarmCategory])
@@ -46,7 +44,6 @@ import UserNotifications
         content.body = "Swipe to cancel"
         content.sound = UNNotificationSound.default()
         content.categoryIdentifier = "alert.category"
-        
         
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2, repeats: false)
         
@@ -62,13 +59,20 @@ import UserNotifications
     }
     
     func sendAlert() {
-        print("Alert sent")
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "sendTextWithTwilio"), object: nil)
+        // Takes all contacts in table view and makes request to server to send alert
+        print("Contacts:")
+        print(contacts)
         
-
+        //TODO: Get contacts from contacts array and post to server
+        let parameters: Parameters = ["text": "test"]
+        
+        Alamofire.request("https://2f2e638b.ngrok.io/sms", method: .post, parameters: parameters).responseJSON(completionHandler: { response in
+            let result = response.result
+            print("Server result: " + result)
+        })
+        
+        print("Text message sent to server")
     }
-    
-    
 }
 
 

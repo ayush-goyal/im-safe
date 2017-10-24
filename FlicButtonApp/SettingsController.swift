@@ -7,27 +7,17 @@
 //
 
 import UIKit
-import Alamofire
 import Contacts
 import ContactsUI
-import UserNotifications
 
 var contacts: [[String]] = []
 
 class SettingsController: UITableViewController, CNContactPickerDelegate {
     
-    var containerView: UIView!
-    var section = "1"
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(sendTwilio), name: NSNotification.Name(rawValue: "sendTextWithTwilio"), object: nil)
-    
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        // Prevents empty cells from appearing at bottom of table
         tableView.tableFooterView = UIView(frame: CGRect.zero)
     }
 
@@ -86,18 +76,5 @@ class SettingsController: UITableViewController, CNContactPickerDelegate {
         tableView.beginUpdates()
         tableView.insertRows(at: [IndexPath(row: contacts.count - 1, section: 0)], with: .automatic)
         tableView.endUpdates()
-    }
-    
-    func sendTwilio() {
-        // Takes all contacts in table view and makes request to server to send alert
-        print("Text message sent!")
-        print(contacts)
-        
-        let parameters: Parameters = ["hello": "hello"]
-        
-        Alamofire.request("https://2f2e638b.ngrok.io/sms", method: .post, parameters: parameters).responseJSON(completionHandler: { response in
-            let result = response.result
-            print(result)
-        })
     }
 }
