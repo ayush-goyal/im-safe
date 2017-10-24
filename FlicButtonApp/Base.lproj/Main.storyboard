@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="1t1-nk-FfT">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Settings-->
+        <scene sceneID="Y86-eR-geC">
+            <objects>
+                <tableViewController title="Settings" id="BZQ-TU-5Ez" customClass="SettingsController" customModule="FlicButtonApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ETI-FC-S1W">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="dJP-vf-erY">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="72"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L2u-lS-fGm">
+                                    <rect key="frame" x="140" y="22" width="94" height="30"/>
+                                    <state key="normal" title="Add Contacts"/>
+                                    <connections>
+                                        <action selector="addContact:" destination="BZQ-TU-5Ez" eventType="touchUpInside" id="hZL-ar-itT"/>
+                                        <action selector="selectContacts" destination="BZQ-TU-5Ez" eventType="touchUpInside" id="Ha6-eI-vfL"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="L2u-lS-fGm" firstAttribute="centerX" secondItem="dJP-vf-erY" secondAttribute="centerX" id="P6W-hf-G56"/>
+                                <constraint firstItem="L2u-lS-fGm" firstAttribute="top" secondItem="dJP-vf-erY" secondAttribute="top" constant="22" id="eic-i7-2H0"/>
+                            </constraints>
+                        </view>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ContactCell" textLabel="UnK-Z0-yrg" detailTextLabel="baj-Aw-cGP" style="IBUITableViewCellStyleSubtitle" id="wes-kx-P4L">
+                                <rect key="frame" x="0.0" y="100" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wes-kx-P4L" id="tfG-O9-EyV">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UnK-Z0-yrg">
+                                            <rect key="frame" x="16" y="5" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="baj-Aw-cGP">
+                                            <rect key="frame" x="16" y="25.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="BZQ-TU-5Ez" id="LFm-GJ-MNP"/>
+                            <outlet property="delegate" destination="BZQ-TU-5Ez" id="e6R-Od-eOo"/>
+                        </connections>
+                    </tableView>
+                    <tabBarItem key="tabBarItem" title="Settings" id="ict-Ow-wj4"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oRS-uA-xKl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="860" y="-313.49325337331339"/>
+        </scene>
+        <!--Home-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController title="Home" id="BYZ-38-t0r" customClass="HomeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Button Status" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jyx-YO-Lm3">
+                                <rect key="frame" x="16" y="35" width="117" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disconnected" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MPQ-gc-VnY">
+                                <rect key="frame" x="16" y="68" width="106" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I'm Safe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qAu-Wf-5Bw">
+                                <rect key="frame" x="148" y="191" width="79.5" height="28"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flic App is Currently" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ylJ-uc-2WG">
+                                <rect key="frame" x="102" y="445" width="171" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Disabled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cpa-q1-Rkt">
+                                <rect key="frame" x="150" y="488" width="75" height="23"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bKu-kn-kPK">
+                                <rect key="frame" x="297" y="63" width="62" height="32"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Connect"/>
+                                <connections>
+                                    <action selector="startScanAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rCh-aM-v7d"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1N2-Fp-Pgb">
+                                <rect key="frame" x="131" y="556" width="112" height="32"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Press to Enable"/>
+                                <connections>
+                                    <action selector="enableOrDisableAppButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ew3-2h-BbQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jkg-Hr-P5O">
+                                <rect key="frame" x="143" y="305" width="88" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Press Button"/>
+                                <connections>
+                                    <action selector="simulateButonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wqm-Kp-RhU"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="MPQ-gc-VnY" firstAttribute="top" secondItem="Jyx-YO-Lm3" secondAttribute="bottom" constant="10" id="Cxn-mL-ehh"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="1N2-Fp-Pgb" secondAttribute="bottom" constant="30" id="IJG-q6-qcE"/>
+                            <constraint firstItem="bKu-kn-kPK" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="NvN-M4-G4P"/>
+                            <constraint firstItem="qAu-Wf-5Bw" firstAttribute="top" secondItem="MPQ-gc-VnY" secondAttribute="bottom" constant="102" id="OWh-yT-0xn"/>
+                            <constraint firstItem="Jyx-YO-Lm3" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="PX9-ei-miq"/>
+                            <constraint firstItem="Jyx-YO-Lm3" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="15" id="Uko-JT-oHw"/>
+                            <constraint firstItem="bKu-kn-kPK" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="43" id="Uy2-cC-KgW"/>
+                            <constraint firstItem="1N2-Fp-Pgb" firstAttribute="top" secondItem="cpa-q1-Rkt" secondAttribute="bottom" constant="45" id="drK-KQ-ThJ"/>
+                            <constraint firstItem="qAu-Wf-5Bw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="dsO-Lc-lUh"/>
+                            <constraint firstItem="cpa-q1-Rkt" firstAttribute="top" secondItem="ylJ-uc-2WG" secondAttribute="bottom" constant="20" id="gZ5-4x-7az"/>
+                            <constraint firstItem="ylJ-uc-2WG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="nEg-l9-PTc"/>
+                            <constraint firstItem="MPQ-gc-VnY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="r2y-os-jfA"/>
+                            <constraint firstItem="cpa-q1-Rkt" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="uME-J3-Ota"/>
+                            <constraint firstItem="1N2-Fp-Pgb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="zpf-bL-MsX"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Home" id="Hmb-tW-eDa"/>
+                    <connections>
+                        <outlet property="appStatusLabel" destination="cpa-q1-Rkt" id="2lg-I1-yDu"/>
+                        <outlet property="buttonStatusLabel" destination="MPQ-gc-VnY" id="MzH-OW-qgs"/>
+                        <outlet property="disableOrEnableAppButton" destination="1N2-Fp-Pgb" id="eDh-pR-wjw"/>
+                        <outlet property="flicConnectButton" destination="bKu-kn-kPK" id="qoJ-xx-J4w"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="860" y="450"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="pbH-pa-eqt">
+            <objects>
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="1t1-nk-FfT" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="7ne-Ax-Zwy">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="wMV-uw-JaU"/>
+                        <segue destination="BZQ-TU-5Ez" kind="relationship" relationship="viewControllers" id="EKa-Jg-pTh"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TWH-Sp-0db" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-79.200000000000003" y="136.28185907046478"/>
+        </scene>
+    </scenes>
+</document>
