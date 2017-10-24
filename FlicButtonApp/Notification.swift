@@ -67,7 +67,7 @@ import Alamofire
         
         //TODO: Get contacts from contacts array and post to server
         let parameters: Parameters = ["text": "test"]
-        
+
         // Alamofire posts request to server
         Alamofire.request(serverPostAlertURL, method: .post, parameters: parameters).responseJSON(completionHandler: { response in
             let result = response.result
@@ -78,6 +78,3 @@ import Alamofire
         print("Text message sent to server")
     }
 }
-
-
-
