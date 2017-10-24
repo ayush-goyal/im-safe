@@ -1,0 +1,22 @@
+//
+//  fliclib.h
+//  fliclib
+//
+//  Created by Anton Meier on 2016-04-20.
+//  Copyright (c) 2016 Shortcut Labs. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+#import <fliclib/SCLFlicPoicManager.h>
+#import <fliclib/SCLFlicPoicButton.h>
+
+//! Project version number for fliclib.
+FOUNDATION_EXPORT double fliclibVersionNumber;
+
+//! Project version string for fliclib.
+FOUNDATION_EXPORT const unsigned char fliclibVersionString[];
+
+// In this header, you should import all the public headers of your framework using statements like #import <fliclib/PublicHeader.h>
+
+
