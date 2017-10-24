@@ -17,7 +17,6 @@
 		FA34D7781F6B617500CBC29A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA34D7761F6B617500CBC29A /* LaunchScreen.storyboard */; };
 		FA34D7861F6B623900CBC29A /* fliclib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA34D7841F6B621C00CBC29A /* fliclib.framework */; };
 		FA34D7871F6B623900CBC29A /* fliclib.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FA34D7841F6B621C00CBC29A /* fliclib.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		FA5BCD751F720493009C1142 /* Twilio.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5BCD741F720493009C1142 /* Twilio.swift */; };
 		FAA45F541F95A912009C54D8 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA45F531F95A912009C54D8 /* Notification.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,7 +51,6 @@
 		FA34D7791F6B617500CBC29A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FA34D7841F6B621C00CBC29A /* fliclib.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = fliclib.framework; path = FlicButtonApp/fliclib.framework; sourceTree = "<group>"; };
 		FA5BCD731F720493009C1142 /* FlicButtonApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FlicButtonApp-Bridging-Header.h"; sourceTree = "<group>"; };
-		FA5BCD741F720493009C1142 /* Twilio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Twilio.swift; sourceTree = "<group>"; };
 		FA7072B91F95A77F00CCCE6F /* FlicButtonApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlicButtonApp.entitlements; sourceTree = "<group>"; };
 		FAA45F531F95A912009C54D8 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -116,13 +114,12 @@
 				FA34D76F1F6B617400CBC29A /* HomeViewController.m */,
 				FA34D7711F6B617500CBC29A /* Main.storyboard */,
 				FA27B9051F91A2750006049F /* SettingsController.swift */,
+				FAA45F531F95A912009C54D8 /* Notification.swift */,
+				FA5BCD731F720493009C1142 /* FlicButtonApp-Bridging-Header.h */,
 				FA34D7741F6B617500CBC29A /* Assets.xcassets */,
 				FA34D7761F6B617500CBC29A /* LaunchScreen.storyboard */,
-				FA5BCD741F720493009C1142 /* Twilio.swift */,
 				FA34D7791F6B617500CBC29A /* Info.plist */,
 				FA34D7681F6B617400CBC29A /* Supporting Files */,
-				FA5BCD731F720493009C1142 /* FlicButtonApp-Bridging-Header.h */,
-				FAA45F531F95A912009C54D8 /* Notification.swift */,
 			);
 			path = FlicButtonApp;
 			sourceTree = "<group>";
@@ -279,7 +276,6 @@
 				FAA45F541F95A912009C54D8 /* Notification.swift in Sources */,
 				FA27B9061F91A2750006049F /* SettingsController.swift in Sources */,
 				FA34D76A1F6B617400CBC29A /* main.m in Sources */,
-				FA5BCD751F720493009C1142 /* Twilio.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -70,12 +70,12 @@ NSTimer *timer = nil;
     [self presentViewController:alert animated:YES completion:nil];
 }
     
--(void)sendText {
-    NSLog(@"Text sent from objective c");
+-(void)sendAlert {
+    // When button is pressed and timer expires, send alert
+    NSLog(@"Alert sent from objective c");
     timer = nil;
     Notification *notification = [[Notification alloc] init];
     [notification sendAlert];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"sendTextWithTwilio" object:nil];
 }
     
 //MARK: Flic Delegate Methods
@@ -133,7 +133,7 @@ NSTimer *timer = nil;
         }];
         
         //Gives user certain amount of time to cancel notification before alert is sent
-        timer = [NSTimer scheduledTimerWithTimeInterval:timeIntervalToCancelNotification target:self selector:@selector(sendText) userInfo:nil repeats:NO];
+        timer = [NSTimer scheduledTimerWithTimeInterval:timeIntervalToCancelNotification target:self selector:@selector(sendAlert) userInfo:nil repeats:NO];
         Notification *notification = [[Notification alloc] init];
         [notification sendNotification];
     }
@@ -205,7 +205,7 @@ NSTimer *timer = nil;
         }];
         
         //Gives user certain amount of time to cancel notification before alert is sent
-        timer = [NSTimer scheduledTimerWithTimeInterval:timeIntervalToCancelNotification target:self selector:@selector(sendText) userInfo:nil repeats:NO];
+        timer = [NSTimer scheduledTimerWithTimeInterval:timeIntervalToCancelNotification target:self selector:@selector(sendAlert) userInfo:nil repeats:NO];
         Notification *notification = [[Notification alloc] init];
         [notification sendNotification];
     }
