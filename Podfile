@@ -5,4 +5,6 @@ target 'FlicButtonApp' do
 
   # Pods for VolunteerNow
   pod 'Alamofire', '~>4.5'
+  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
 end

@@ -26,8 +26,7 @@
                                     <rect key="frame" x="140" y="22" width="94" height="30"/>
                                     <state key="normal" title="Add Contacts"/>
                                     <connections>
-                                        <action selector="addContact:" destination="BZQ-TU-5Ez" eventType="touchUpInside" id="hZL-ar-itT"/>
-                                        <action selector="selectContacts" destination="BZQ-TU-5Ez" eventType="touchUpInside" id="Ha6-eI-vfL"/>
+                                        <action selector="selectContacts" destination="BZQ-TU-5Ez" eventType="touchUpInside" id="KYa-ID-xXs"/>
                                     </connections>
                                 </button>
                             </subviews>

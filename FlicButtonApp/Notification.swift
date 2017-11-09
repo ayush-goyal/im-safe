@@ -12,7 +12,7 @@ import Alamofire
 
 @objc class Notification: NSObject {
     
-    let serverPostAlertURL = "https://2f2e638b.ngrok.io/sms"
+    let serverPostAlertURL = "https://fd7ccee8.ngrok.io/sendAlert"
 
     func sendNotification() {
         // Method called by objective c when button is pressed
@@ -66,10 +66,17 @@ import Alamofire
         print(contacts)
         
         //TODO: Get contacts from contacts array and post to server
-        let parameters: Parameters = ["text": "test"]
+        
+        var parameterInfo: [String: String] = [:]
+        
+        for contact in contacts {
+            parameterInfo[contact[0]] = contact[1]
+        }
+        
+        let parameters: Parameters = ["people": parameterInfo, "senderNumber": "6783309948", "token": FCMToken]
 
         // Alamofire posts request to server
-        Alamofire.request(serverPostAlertURL, method: .post, parameters: parameters).responseJSON(completionHandler: { response in
+        Alamofire.request(serverPostAlertURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON(completionHandler: { response in
             let result = response.result
             print("Server result: ")
             print(result)
