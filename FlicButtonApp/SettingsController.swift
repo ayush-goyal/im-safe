@@ -9,10 +9,14 @@
 import UIKit
 import Contacts
 import ContactsUI
-
-var contacts: [[String]] = []
+import CoreData
 
 class SettingsController: UITableViewController, CNContactPickerDelegate {
+    
+    var managedObjectContext: NSManagedObjectContext!
+    lazy var fetchedResultsController: AlertContactFetchedResultsController = {
+        return AlertContactFetchedResultsController(managedObjectContext: self.managedObjectContext, tableView: self.tableView)
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,32 +28,40 @@ class SettingsController: UITableViewController, CNContactPickerDelegate {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return fetchedResultsController.sections?.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contacts.count
+        guard let sections = fetchedResultsController.sections else {
+            fatalError("No sections in fetchedResultsController")
+        }
+        let sectionInfo = sections[section]
+        return sectionInfo.numberOfObjects
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ContactCell", for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "alertContactCell", for: indexPath) as? AlertContactCell else { fatalError() }
         
-        cell.textLabel?.text = contacts[indexPath.row][0]
-        cell.detailTextLabel?.text = contacts[indexPath.row][1]
+        let alertContact = fetchedResultsController.object(at: indexPath)
+        
+        cell.name.text = alertContact.name
+        cell.number.text = alertContact.number
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCellEditingStyle.delete {
-            contacts.remove(at: indexPath.row)
-            tableView.reloadData()
+            let alertContact = fetchedResultsController.object(at: indexPath)
+            
+            managedObjectContext.delete(alertContact)
+            managedObjectContext.saveChanges()
         }
     }
     
     // MARK: - Contacts
     
-    @IBAction func selectContacts() {
+    @IBAction func addContacts(_ sender: Any) {
         // IBAction to open contact picker controller to allow user to select contacts
         let cnPicker = CNContactPickerViewController()
         cnPicker.delegate = self
@@ -71,10 +83,13 @@ class SettingsController: UITableViewController, CNContactPickerDelegate {
     
     func addContact(givenName: String, andFamilyName familyName: String, forNumber number: String) {
         // Adds given contact to table view
-        contacts.append(["\(givenName) \(familyName)", number])
         
-        tableView.beginUpdates()
-        tableView.insertRows(at: [IndexPath(row: contacts.count - 1, section: 0)], with: .automatic)
-        tableView.endUpdates()
+        
+        let alertContact = NSEntityDescription.insertNewObject(forEntityName: "AlertContact", into: managedObjectContext) as! AlertContact
+        alertContact.name = "\(givenName) \(familyName)"
+        alertContact.number = number
+        
+        managedObjectContext.saveChanges()
+        
     }
 }

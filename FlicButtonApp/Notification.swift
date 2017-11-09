@@ -60,7 +60,7 @@ import Alamofire
         }
     }
     
-    func sendAlert() {
+    /*func sendAlert() {
         // Takes all contacts in table view and makes request to server to send alert
         print("Contacts:")
         print(contacts)
@@ -83,5 +83,5 @@ import Alamofire
         })
         
         print("Text message sent to server")
-    }
+    }*/
 }
