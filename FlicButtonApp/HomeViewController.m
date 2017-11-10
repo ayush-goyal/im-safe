@@ -123,6 +123,14 @@ NSTimer *timer = nil;
     // Button was clicked
     NSLog(@"Button clicked");
     
+    self.buttonStatusLabel.text = @"Connected";
+    self.buttonStatusLabel.textColor = [UIColor greenColor];
+    self.flicConnectButton.enabled = NO;
+    self.appStatusLabel.text = @"Enabled";
+    self.appStatusLabel.textColor = [UIColor greenColor];
+    [self.disableOrEnableAppButton setTitle:@"Press to Disable" forState:UIControlStateNormal];
+    self.disableOrEnableAppButton.enabled = YES;
+    
     //If app is enabled and enough time has passed once button is setup, send notification
     if ([self.appStatusLabel.text isEqualToString:@"Enabled"] && [[NSDate date] timeIntervalSince1970] > (timeWait + timeToWaitAfterSetup) && timer == nil) {
         // Make sure timer still works in background
