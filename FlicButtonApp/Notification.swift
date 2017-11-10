@@ -9,10 +9,13 @@
 import Foundation
 import UserNotifications
 import Alamofire
+import CoreData
+
+var alertModeOn: Bool = false
 
 @objc class Notification: NSObject {
     
-    let serverPostAlertURL = "https://fd7ccee8.ngrok.io/sendAlert"
+    let serverPostAlertURL = "https://im-safe-server.herokuapp.com/sendAlert"
 
     func sendNotification() {
         // Method called by objective c when button is pressed
@@ -60,28 +63,30 @@ import Alamofire
         }
     }
     
-    /*func sendAlert() {
+    func sendAlert() {
         // Takes all contacts in table view and makes request to server to send alert
         print("Contacts:")
-        print(contacts)
+        print(alertContacts)
         
         //TODO: Get contacts from contacts array and post to server
         
         var parameterInfo: [String: String] = [:]
-        
-        for contact in contacts {
-            parameterInfo[contact[0]] = contact[1]
+        if let contacts = alertContacts {
+            for contact in contacts {
+                parameterInfo[contact.name] = contact.number
+            }
+            
+            let parameters: Parameters = ["people": parameterInfo, "senderNumber": "6783309948", "token": FCMToken]
+            
+            // Alamofire posts request to server
+            Alamofire.request(serverPostAlertURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).response(completionHandler: { response in
+                print("Server response: ")
+                print(response.data)
+            })
+            
+            alertModeOn = true
+            print("Text message sent to server")
         }
-        
-        let parameters: Parameters = ["people": parameterInfo, "senderNumber": "6783309948", "token": FCMToken]
-
-        // Alamofire posts request to server
-        Alamofire.request(serverPostAlertURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON(completionHandler: { response in
-            let result = response.result
-            print("Server result: ")
-            print(result)
-        })
-        
-        print("Text message sent to server")
-    }*/
+    }
+    
 }

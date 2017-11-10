@@ -11,6 +11,8 @@ import Contacts
 import ContactsUI
 import CoreData
 
+var alertContacts: [AlertContact]?
+
 class SettingsController: UITableViewController, CNContactPickerDelegate {
     
     var managedObjectContext: NSManagedObjectContext!
@@ -21,6 +23,7 @@ class SettingsController: UITableViewController, CNContactPickerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        alertContacts = fetchedResultsController.fetchedObjects
         // Prevents empty cells from appearing at bottom of table
         tableView.tableFooterView = UIView(frame: CGRect.zero)
     }
@@ -56,6 +59,7 @@ class SettingsController: UITableViewController, CNContactPickerDelegate {
             
             managedObjectContext.delete(alertContact)
             managedObjectContext.saveChanges()
+            alertContacts = fetchedResultsController.fetchedObjects
         }
     }
     
@@ -90,6 +94,7 @@ class SettingsController: UITableViewController, CNContactPickerDelegate {
         alertContact.number = number
         
         managedObjectContext.saveChanges()
+        alertContacts = fetchedResultsController.fetchedObjects
         
     }
 }

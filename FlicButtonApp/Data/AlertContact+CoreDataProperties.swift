@@ -18,7 +18,7 @@ extension AlertContact {
         return request
     }
 
-    @NSManaged public var name: String?
-    @NSManaged public var number: String?
+    @NSManaged public var name: String
+    @NSManaged public var number: String
 
 }

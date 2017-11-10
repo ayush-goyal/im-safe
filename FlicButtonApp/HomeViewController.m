@@ -75,7 +75,7 @@ NSTimer *timer = nil;
     NSLog(@"Alert sent from objective c");
     timer = nil;
     Notification *notification = [[Notification alloc] init];
-    //[notification sendAlert];
+    [notification sendAlert];
 }
     
 //MARK: Flic Delegate Methods
