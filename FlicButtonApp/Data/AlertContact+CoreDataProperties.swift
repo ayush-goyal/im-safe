@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension AlertContact {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<AlertContact> {
@@ -21,4 +20,10 @@ extension AlertContact {
     @NSManaged public var name: String
     @NSManaged public var number: String
 
+}
+
+extension AlertContact {
+    public override var description: String {
+        return "\(self.name) - \(self.number)"
+    }
 }

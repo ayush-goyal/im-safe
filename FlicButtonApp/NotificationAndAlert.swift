@@ -78,9 +78,9 @@ import Alamofire
         // Print information for debugging
         print("--------------------------------------------")
         print("Sending Alert to Server with....")
-        print("Contacts:")
+        print("\nContacts:")
         print(alertContacts)
-        print("Current Location:")
+        print("\nCurrent Location:")
         print(currentLocation)
         print("--------------------------------------------")
         
@@ -92,17 +92,18 @@ import Alamofire
             }
 
             // Creates parameter variable to hold information that will be sent to server
-            let parameters: Parameters? = ["people": contactParameters, "senderNumber": "6783309948", "token": FCMToken, "coordinate": ["latitude": currentLocation?.coordinate.latitude, "longitude": currentLocation?.coordinate.longitude]]
+            let parameters: Parameters? = ["people": contactParameters, "token": FCMToken, "coordinate": ["latitude": currentLocation?.coordinate.latitude, "longitude": currentLocation?.coordinate.longitude]]
             
             // Alamofire posts request to server to send alert
-            Alamofire.request(serverPostAlertURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).response(completionHandler: { response in
-                print("Server response: ")
-                print(response.data)
-            })
+            Alamofire.request(serverPostAlertURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseString { response in
+                print("Server responded with....")
+                print("\nSuccess: \(response.result.isSuccess)")
+                print("\nResponse String: \(response.result.value)")
+                print("--------------------------------------------")
+            }
             
             // Turn alert mode on now that message has been sent to server
             alertModeOn = true
-            print("Alert sent to server")
         }
     }
     
@@ -110,7 +111,7 @@ import Alamofire
     static func cancelAlert() {
         print("--------------------------------------------")
         print("Sending Cancel Alert to Server with....")
-        print("Contacts:")
+        print("\nContacts:")
         print(alertContacts)
         print("--------------------------------------------")
         
@@ -122,17 +123,18 @@ import Alamofire
             }
             
             // Creates parameter variable to hold information that will be sent to server
-            let parameters: Parameters = ["people": parameterInfo, "senderNumber": "6783309948"]
+            let parameters: Parameters = ["people": parameterInfo]
             
             // Alamofire posts request to server with parameter info
-            Alamofire.request(serverPostCancelURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).response(completionHandler: { response in
-                print("Server response: ")
-                print(response.response)
-            })
+            Alamofire.request(serverPostCancelURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseString { response in
+                print("Server responded with....")
+                print("\nSuccess: \(response.result.isSuccess)")
+                print("\nResponse String: \(response.result.value)")
+                print("--------------------------------------------")
+            }
             
             // Once alert has been cancelled, alert mode is turned off
             alertModeOn = false
-            print("Cancel Alert Sent to Server")
         }
     }
     
