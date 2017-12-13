@@ -74,8 +74,7 @@ NSTimer *timer = nil;
     // When button is pressed and timer expires, send alert
     NSLog(@"Alert sent from objective c");
     timer = nil;
-    Notification *notification = [[Notification alloc] init];
-    [notification sendAlert];
+    [NotificationAndAlert sendAlert];
 }
     
 //MARK: Flic Delegate Methods
@@ -142,8 +141,8 @@ NSTimer *timer = nil;
         
         //Gives user certain amount of time to cancel notification before alert is sent
         timer = [NSTimer scheduledTimerWithTimeInterval:timeIntervalToCancelNotification target:self selector:@selector(sendAlert) userInfo:nil repeats:NO];
-        Notification *notification = [[Notification alloc] init];
-        [notification sendNotification];
+        [NotificationAndAlert sendNotification];
+
     }
 }
 
@@ -214,8 +213,8 @@ NSTimer *timer = nil;
         
         //Gives user certain amount of time to cancel notification before alert is sent
         timer = [NSTimer scheduledTimerWithTimeInterval:timeIntervalToCancelNotification target:self selector:@selector(sendAlert) userInfo:nil repeats:NO];
-        Notification *notification = [[Notification alloc] init];
-        [notification sendNotification];
+        [NotificationAndAlert sendNotification];
+
     }
 }
     

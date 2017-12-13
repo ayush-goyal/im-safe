@@ -24,7 +24,7 @@
 		FA5280291FB2669E00001B27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5280281FB2669E00001B27 /* AppDelegate.swift */; };
 		FA8F796C1FB3FBFB00E5E151 /* AlertContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8F796B1FB3FBFB00E5E151 /* AlertContactCell.swift */; };
 		FA8F796E1FB3FD5700E5E151 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8F796D1FB3FD5700E5E151 /* TabBarController.swift */; };
-		FAA45F541F95A912009C54D8 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA45F531F95A912009C54D8 /* Notification.swift */; };
+		FAA45F541F95A912009C54D8 /* NotificationAndAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA45F531F95A912009C54D8 /* NotificationAndAlert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -65,7 +65,7 @@
 		FA7072B91F95A77F00CCCE6F /* FlicButtonApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlicButtonApp.entitlements; sourceTree = "<group>"; };
 		FA8F796B1FB3FBFB00E5E151 /* AlertContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertContactCell.swift; sourceTree = "<group>"; };
 		FA8F796D1FB3FD5700E5E151 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		FAA45F531F95A912009C54D8 /* Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		FAA45F531F95A912009C54D8 /* NotificationAndAlert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationAndAlert.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,7 +126,7 @@
 				FA34D76F1F6B617400CBC29A /* HomeViewController.m */,
 				FA34D7711F6B617500CBC29A /* Main.storyboard */,
 				FA3CB1431FB3F1C000A4C217 /* Data */,
-				FAA45F531F95A912009C54D8 /* Notification.swift */,
+				FAA45F531F95A912009C54D8 /* NotificationAndAlert.swift */,
 				FA27B9051F91A2750006049F /* SettingsController.swift */,
 				FA5BCD731F720493009C1142 /* FlicButtonApp-Bridging-Header.h */,
 				FA34D7741F6B617500CBC29A /* Assets.xcassets */,
@@ -303,7 +303,7 @@
 				FA34D7701F6B617400CBC29A /* HomeViewController.m in Sources */,
 				FA8F796C1FB3FBFB00E5E151 /* AlertContactCell.swift in Sources */,
 				FA3CB14E1FB3F2DE00A4C217 /* AlertContact+CoreDataProperties.swift in Sources */,
-				FAA45F541F95A912009C54D8 /* Notification.swift in Sources */,
+				FAA45F541F95A912009C54D8 /* NotificationAndAlert.swift in Sources */,
 				FA27B9061F91A2750006049F /* SettingsController.swift in Sources */,
 				FA3CB14D1FB3F2DE00A4C217 /* AlertContact+CoreDataClass.swift in Sources */,
 				FA5280291FB2669E00001B27 /* AppDelegate.swift in Sources */,

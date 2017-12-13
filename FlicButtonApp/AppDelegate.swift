@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         FirebaseApp.configure()
         
         if #available(iOS 10.0, *) {
-            // For iOS 10 display notification (sent via APNS)
+            // For iOS 10 display notification (sent via APNS) and get authorization
             UNUserNotificationCenter.current().delegate = self
             
             let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
@@ -35,6 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             application.registerUserNotificationSettings(settings)
         }
         
+        // Remote notification setup to allow phone to receive remove notifications from Firebase server
         application.registerForRemoteNotifications()
         
         Messaging.messaging().delegate = self
@@ -44,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         return true
     }
     
+    // If registration token is refreshed, update FCM token global variable
     func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
         print("FCM Token: \(fcmToken)")
         FCMToken = fcmToken
@@ -61,9 +63,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        
+        // When the app is opened, and the alertModeOn variable is true, the alert view is added to the screen via the TabBarController
         if alertModeOn {
             let tabBarController = self.window?.rootViewController as! TabBarController
-            tabBarController.addAlertView(window: window)
+            tabBarController.addAlertView()
         }
     }
     
