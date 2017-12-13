@@ -11,8 +11,6 @@ import Contacts
 import ContactsUI
 import CoreData
 
-var alertContacts: [AlertContact]?
-
 class SettingsController: UITableViewController, CNContactPickerDelegate {
     
     var managedObjectContext: NSManagedObjectContext!

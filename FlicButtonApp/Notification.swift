@@ -10,12 +10,13 @@ import Foundation
 import UserNotifications
 import Alamofire
 import CoreData
+import CoreLocation
 
 var alertModeOn: Bool = false
 
 @objc class Notification: NSObject {
     
-    let serverPostAlertURL = "https://im-safe-server.herokuapp.com/sendAlert"
+    let serverPostAlertURL = "https://5f6b896d.ngrok.io/sendAlert"    //  "https://im-safe-server.herokuapp.com/sendAlert"
 
     func sendNotification() {
         // Method called by objective c when button is pressed
@@ -67,6 +68,8 @@ var alertModeOn: Bool = false
         // Takes all contacts in table view and makes request to server to send alert
         print("Contacts:")
         print(alertContacts)
+        print("Current Location:")
+        print(currentLocation)
         
         //TODO: Get contacts from contacts array and post to server
         
@@ -76,7 +79,7 @@ var alertModeOn: Bool = false
                 parameterInfo[contact.name] = contact.number
             }
             
-            let parameters: Parameters = ["people": parameterInfo, "senderNumber": "6783309948", "token": FCMToken]
+            let parameters: Parameters = ["people": parameterInfo, "senderNumber": "6783309948", "token": FCMToken, "coordinate": ["latitude": currentLocation?.coordinate.latitude, "longitude": currentLocation?.coordinate.longitude]]
             
             // Alamofire posts request to server
             Alamofire.request(serverPostAlertURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).response(completionHandler: { response in

@@ -9,86 +9,66 @@
 import UIKit
 import CoreData
 import Alamofire
+import CoreLocation
 
-class TabBarController: UITabBarController {
+var currentLocation: CLLocation?
+var alertContacts: [AlertContact]?
+
+class TabBarController: UITabBarController, CLLocationManagerDelegate {
     
+    // Init Core Data to persist emergency contact information between app sessions
     let coreDataStack = CoreDataStack()
     lazy var managedObjectContext: NSManagedObjectContext = {
         self.coreDataStack.managedObjectContext
     }()
     
-    var alertView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height))
+    // Init location manager for user location
+    let locationManager = CLLocationManager()
+    
+    // Create views for alert view
+    lazy var alertView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = UIColor.red
+        return view
+    }()
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Alert Was Triggered"
+        label.textColor = UIColor.white
+        label.font = UIFont.systemFont(ofSize: 25, weight: UIFontWeightHeavy)
+        return label
+    }()
+    
+    lazy var cancelButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Cancel Alert", for: .normal)
+        button.titleLabel?.textColor = UIColor.white
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 19)
+        button.addTarget(self, action: #selector(cancelAlert), for: .touchUpInside)
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if let tabBarViewControllers = self.viewControllers {
             if let navigationController = tabBarViewControllers[1] as? UINavigationController, let settingsController = navigationController.topViewController as? SettingsController {
                 settingsController.managedObjectContext = self.managedObjectContext
+                _ = settingsController.view
             }
-            
         }
+        
+        locationManager.delegate = self
+        enableLocationServices()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        print("added to view")
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        print(alertModeOn)
-        if alertModeOn {
-            alertView.translatesAutoresizingMaskIntoConstraints = false
-            alertView.backgroundColor = UIColor.red
-            
-            let titleLabel = UILabel(frame: CGRect.zero)
-            titleLabel.translatesAutoresizingMaskIntoConstraints = false
-            titleLabel.text = "Alert Was Triggered"
-            titleLabel.textColor = UIColor.white
-            titleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFontWeightHeavy)
-            
-            let cancelButton = UIButton(frame: CGRect.zero)
-            cancelButton.translatesAutoresizingMaskIntoConstraints = false
-            cancelButton.setTitle("Cancel Alert", for: .normal)
-            cancelButton.titleLabel?.textColor = UIColor.white
-            cancelButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 19)
-            cancelButton.addTarget(self, action: #selector(cancelAlert), for: .touchUpInside)
-            
-            view.addSubview(titleLabel)
-            titleLabel.centerXAnchor.constraint(equalTo: alertView.centerXAnchor).isActive = true
-            titleLabel.centerYAnchor.constraint(equalTo: alertView.topAnchor, constant: 180).isActive = true
-            
-            view.addSubview(cancelButton)
-            cancelButton.centerXAnchor.constraint(equalTo: alertView.centerXAnchor).isActive = true
-            cancelButton.centerYAnchor.constraint(equalTo: alertView.centerYAnchor).isActive = true
-            
-            self.view.addSubview(alertView)
-            view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-            view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-            view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-            view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        }
-    }
-    
-    func addAlertView() {
-        print("Alert View")
-        print(alertModeOn)
+    func addAlertView(window: UIWindow?) {
         if alertModeOn == true {
-            alertView.translatesAutoresizingMaskIntoConstraints = false
-            alertView.backgroundColor = UIColor.red
-            
-            let titleLabel = UILabel(frame: CGRect.zero)
-            titleLabel.translatesAutoresizingMaskIntoConstraints = false
-            titleLabel.text = "Alert Was Triggered"
-            titleLabel.textColor = UIColor.white
-            titleLabel.font = UIFont.systemFont(ofSize: 25, weight: UIFontWeightHeavy)
-            
-            let cancelButton = UIButton(frame: CGRect.zero)
-            cancelButton.translatesAutoresizingMaskIntoConstraints = false
-            cancelButton.setTitle("Cancel Alert", for: .normal)
-            cancelButton.titleLabel?.textColor = UIColor.white
-            cancelButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 19)
-            cancelButton.addTarget(self, action: #selector(cancelAlert), for: .touchUpInside)
-            
+
             alertView.addSubview(titleLabel)
             titleLabel.centerXAnchor.constraint(equalTo: alertView.centerXAnchor).isActive = true
             titleLabel.centerYAnchor.constraint(equalTo: alertView.topAnchor, constant: 180).isActive = true
@@ -97,17 +77,12 @@ class TabBarController: UITabBarController {
             cancelButton.centerXAnchor.constraint(equalTo: alertView.centerXAnchor).isActive = true
             cancelButton.centerYAnchor.constraint(equalTo: alertView.centerYAnchor).isActive = true
             
-            self.view.addSubview(alertView)
-            view.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-            view.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-            view.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-            view.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+            view.window!.addSubview(alertView)
+            alertView.leadingAnchor.constraint(equalTo: window!.leadingAnchor).isActive = true
+            alertView.trailingAnchor.constraint(equalTo: window!.trailingAnchor).isActive = true
+            alertView.topAnchor.constraint(equalTo: window!.topAnchor).isActive = true
+            alertView.bottomAnchor.constraint(equalTo: window!.bottomAnchor).isActive = true
         }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func cancelAlert() {
@@ -134,19 +109,61 @@ class TabBarController: UITabBarController {
             
             alertModeOn = false
             print("Cancel Alert Sent to Server")
-            self.view.willRemoveSubview(alertView)
+            alertView.removeFromSuperview()
         }
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    //MARK: - CoreLocation
+    
+    func enableLocationServices() {
+        switch CLLocationManager.authorizationStatus() {
+        case .notDetermined:
+            locationManager.requestAlwaysAuthorization()
+            break
+        case .restricted, .denied:
+            //TODO: send alert to turn on notification or app wont work
+            break
+        case .authorizedWhenInUse:
+            locationManager.requestAlwaysAuthorization()
+            //TODO: send alert to turn on always or app wont work
+            break
+        case .authorizedAlways:
+            startReceivingLocationChanges()
+        }
     }
-    */
-
+    
+    func startReceivingLocationChanges() {
+        if CLLocationManager.authorizationStatus() == .authorizedAlways && CLLocationManager.locationServicesEnabled() == true {
+            print("Turning on location services to receive location")
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.distanceFilter = 50.0
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        currentLocation = locations.last
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error.localizedDescription)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        print("Authorization status of location services changed")
+        
+        switch CLLocationManager.authorizationStatus() {
+        case .notDetermined:
+            locationManager.requestAlwaysAuthorization()
+            break
+        case .restricted, .denied:
+            //TODO: send alert to turn on notification or app wont work
+            break
+        case .authorizedWhenInUse:
+            //TODO: send alert to turn on always or app wont work
+            break
+        case .authorizedAlways:
+            startReceivingLocationChanges()
+        }
+    }
 }

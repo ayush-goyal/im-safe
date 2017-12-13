@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        // Use Firebase library to configure APIs
         FirebaseApp.configure()
         
         if #available(iOS 10.0, *) {
@@ -61,8 +61,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-        let tabBarController = self.window?.rootViewController as! TabBarController
-        tabBarController.addAlertView()
+        if alertModeOn {
+            let tabBarController = self.window?.rootViewController as! TabBarController
+            tabBarController.addAlertView(window: window)
+        }
     }
     
     func applicationDidBecomeActive(_ application: UIApplication) {
