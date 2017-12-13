@@ -13,8 +13,8 @@ import Alamofire
 @objc final class NotificationAndAlert: NSObject {
 
     // Constant server URL Variables
-    static let serverPostAlertURL: URLConvertible = "https://5b0074ee.ngrok.io/sendAlert"
-    static let serverPostCancelURL: URLConvertible = "https://5b0074ee.ngrok.io/cancelAlert"
+    static let serverPostAlertURL: URLConvertible = "https://im-safe-server.herokuappp.com/sendAlert"
+    static let serverPostCancelURL: URLConvertible = "https://im-safe-server.herokuappp.com/cancelAlert"
     
     // Method called by objective c when button is pressed
     static func sendNotification() {

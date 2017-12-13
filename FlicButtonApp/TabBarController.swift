@@ -110,11 +110,24 @@ extension TabBarController: CLLocationManagerDelegate {
             locationManager.requestAlwaysAuthorization()
             break
         case .restricted, .denied:
-            //TODO: send alert to turn on notification or app wont work
+            // Send alert to user to correctly update location service authorization
+            let alertController = UIAlertController(title: "App will not work", message: "Please turn on Always Authorized location services for I'm Safe in settings to allow user location to be tracked correctly.", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(action)
+            
+            present(alertController, animated: true, completion: nil)
             break
         case .authorizedWhenInUse:
+            // Send alert to user to correctly update location services always authorization
+            let alertController = UIAlertController(title: "App will not work", message: "Please select Always Authorized location services for I'm Safe to allow user location to be tracked correctly.", preferredStyle: .alert)
+            
+            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(action)
+            
+            present(alertController, animated: true, completion: nil)
+            
             locationManager.requestAlwaysAuthorization()
-            //TODO: send alert to turn on always or app wont work
             break
         case .authorizedAlways:
             enableLocationServices()
