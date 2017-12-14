@@ -116,7 +116,8 @@ extension TabBarController: CLLocationManagerDelegate {
             let action = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(action)
             
-            present(alertController, animated: true, completion: nil)
+            //present(alertController, animated: true, completion: nil)
+            locationManager.requestAlwaysAuthorization()
             break
         case .authorizedWhenInUse:
             // Send alert to user to correctly update location services always authorization
@@ -125,8 +126,7 @@ extension TabBarController: CLLocationManagerDelegate {
             let action = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertController.addAction(action)
             
-            present(alertController, animated: true, completion: nil)
-            
+            //present(alertController, animated: true, completion: nil)
             locationManager.requestAlwaysAuthorization()
             break
         case .authorizedAlways:
@@ -139,7 +139,10 @@ extension TabBarController: CLLocationManagerDelegate {
         if CLLocationManager.authorizationStatus() == .authorizedAlways && CLLocationManager.locationServicesEnabled() == true {
             print("Turning on location services to receive location")
             locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.distanceFilter = 50.0
+            locationManager.distanceFilter = 80.0
+            locationManager.allowsBackgroundLocationUpdates = true
+            locationManager.pausesLocationUpdatesAutomatically = false
+            locationManager.activityType = .otherNavigation
             locationManager.startUpdatingLocation()
         }
     }
@@ -147,6 +150,10 @@ extension TabBarController: CLLocationManagerDelegate {
     // When location changes, update current location global variable with new location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         currentLocation = locations.last
+        if alertModeOn == true {
+            NotificationAndAlert.updateLocation()
+        }
+        
     }
     
     // When location fails, print error

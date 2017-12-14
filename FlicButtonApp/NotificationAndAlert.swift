@@ -13,8 +13,9 @@ import Alamofire
 @objc final class NotificationAndAlert: NSObject {
 
     // Constant server URL Variables
-    static let serverPostAlertURL: URLConvertible = "https://im-safe-server.herokuappp.com/sendAlert"
-    static let serverPostCancelURL: URLConvertible = "https://im-safe-server.herokuappp.com/cancelAlert"
+    static let serverPostAlertURL: URLConvertible = "https://5b0074ee.ngrok.io/sendAlert"
+    static let serverPostCancelURL: URLConvertible = "https://5b0074ee.ngrok.io/cancelAlert"
+    static let serverUpdateLocationURL: URLConvertible = "https://5b0074ee.ngrok.io/updateLocation"
     
     // Method called by objective c when button is pressed
     static func sendNotification() {
@@ -58,7 +59,7 @@ import Alamofire
         content.categoryIdentifier = "alert.category"
         
         //Notification trigger is made
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 0.1, repeats: false)
         
         // Identifier, content, and trigger are combined into notification request
         let notificationRequest = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
@@ -84,27 +85,35 @@ import Alamofire
         print(currentLocation)
         print("--------------------------------------------")
         
-        if let contacts = alertContacts {
-            // Gets all information from contacts that user listed and puts in parameter variable to send to server
-            var contactParameters: [String: String] = [:]
-            for contact in contacts {
-                contactParameters[contact.name] = contact.number
-            }
-
-            // Creates parameter variable to hold information that will be sent to server
-            let parameters: Parameters? = ["people": contactParameters, "token": FCMToken, "coordinate": ["latitude": currentLocation?.coordinate.latitude, "longitude": currentLocation?.coordinate.longitude]]
+        guard let contacts = alertContacts else {
+            let alertController = UIAlertController(title: "No contacts selected", message: "Please select contacts from the contacts tab", preferredStyle: .alert)
             
-            // Alamofire posts request to server to send alert
-            Alamofire.request(serverPostAlertURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseString { response in
-                print("Server responded with....")
-                print("\nSuccess: \(response.result.isSuccess)")
-                print("\nResponse String: \(response.result.value)")
-                print("--------------------------------------------")
-            }
+            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(action)
             
-            // Turn alert mode on now that message has been sent to server
-            alertModeOn = true
+            //present(alertController, animated: true, completion: nil)
+            return
         }
+        
+        // Gets all information from contacts that user listed and puts in parameter variable to send to server
+        var contactParameters: [String: String] = [:]
+        for contact in contacts {
+            contactParameters[contact.name] = contact.number
+        }
+
+        // Creates parameter variable to hold information that will be sent to server
+        let parameters: Parameters? = ["people": contactParameters, "token": FCMToken, "coordinate": ["latitude": currentLocation?.coordinate.latitude, "longitude": currentLocation?.coordinate.longitude]]
+        
+        // Alamofire posts request to server to send alert
+        Alamofire.request(serverPostAlertURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseString { response in
+            print("Server responded with....")
+            print("\nSuccess: \(response.result.isSuccess)")
+            print("\nResponse String: \(response.result.value)")
+            print("--------------------------------------------")
+        }
+        
+        // Turn alert mode on now that message has been sent to server
+        alertModeOn = true
     }
     
     // Takes all contacts in table view and makes request to server to send cancel alert once alert is over
@@ -135,6 +144,36 @@ import Alamofire
             
             // Once alert has been cancelled, alert mode is turned off
             alertModeOn = false
+        }
+    }
+    
+    static func updateLocation() {
+        print("--------------------------------------------")
+        print("Sending New Location to Server with....")
+        print("\nContacts:")
+        print(alertContacts)
+        print("\nCurrent Location:")
+        print(currentLocation)
+        print("--------------------------------------------")
+        
+        if let contacts = alertContacts {
+            // Gets all information from contacts that user listed and puts in parameter variable to send to server
+            var contactParameters: [String: String] = [:]
+            for contact in contacts {
+                contactParameters[contact.name] = contact.number
+            }
+            
+            // Creates parameter variable to hold information that will be sent to server
+            let parameters: Parameters? = ["people": contactParameters, "token": FCMToken, "coordinate": ["latitude": currentLocation?.coordinate.latitude, "longitude": currentLocation?.coordinate.longitude]]
+            
+            // Alamofire posts request to server to send alert
+            Alamofire.request(serverUpdateLocationURL, method: .post, parameters: parameters, encoding: JSONEncoding.default).responseString { response in
+                print("Server responded with....")
+                print("\nSuccess: \(response.result.isSuccess)")
+                print("\nResponse String: \(response.result.value)")
+                print("--------------------------------------------")
+            }
+            
         }
     }
     

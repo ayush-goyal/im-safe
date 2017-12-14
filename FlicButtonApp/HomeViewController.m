@@ -14,7 +14,7 @@
 @end
 
 static NSTimeInterval timeWait;
-static int timeToWaitAfterSetup = 2;
+static double timeToWaitAfterSetup = 10;
 static float timeIntervalToCancelNotification = 8.0;
 NSTimer *timer = nil;
 
@@ -106,6 +106,13 @@ NSTimer *timer = nil;
     timeWait = [[NSDate date] timeIntervalSince1970];
 }
 
+- (void)flicManagerDidRestoreState:(SCLFlicManager *_Nonnull)manager {
+    NSLog(@"Flic Manager state restored");
+    
+    //Variable to make sure that button isn't accidently triggered when first setting up
+    timeWait = [[NSDate date] timeIntervalSince1970];
+}
+
 - (void) flicButton:(SCLFlicButton *)button didDisconnectWithError:(NSError *)error {
     // Button has been disconnected - Set user interface
     NSLog(@"Button disconnected");
@@ -131,7 +138,9 @@ NSTimer *timer = nil;
     self.disableOrEnableAppButton.enabled = YES;
     
     //If app is enabled and enough time has passed once button is setup, send notification
-    if ([self.appStatusLabel.text isEqualToString:@"Enabled"] && [[NSDate date] timeIntervalSince1970] > (timeWait + timeToWaitAfterSetup) && timer == nil) {
+    double currentTime = [[NSDate date] timeIntervalSince1970];
+    NSLog(@"%@", [NSString stringWithFormat:@"%f", timeWait]);
+    if ([self.appStatusLabel.text isEqualToString:@"Enabled"] && currentTime > (timeWait + timeToWaitAfterSetup) && timer == nil) {
         // Make sure timer still works in background
         UIBackgroundTaskIdentifier bgTask = 0;
         UIApplication *app = [UIApplication sharedApplication];
@@ -144,10 +153,6 @@ NSTimer *timer = nil;
         [NotificationAndAlert sendNotification];
 
     }
-}
-
-- (void)flicManagerDidRestoreState:(SCLFlicManager *_Nonnull)manager {
-    NSLog(@"Flic Manager state restored");
 }
 
 //MARK: Notification Center Delegate Methods
